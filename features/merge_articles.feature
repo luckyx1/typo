@@ -5,7 +5,8 @@ Feature: Merge Articles
 
 
 	Scenario: A non-admin cannot merge articles
-		Given I am not the admin
+		Given the non-admin blog is set up
+		And I am logged into the non-admin panel
 		When I am on the edit article page
 		Then I should not see "Merge Articles"
 
@@ -14,7 +15,8 @@ Feature: Merge Articles
 		Then I should not see "Merge Articles"
 
 	Scenario: When articles are merged, the merged article should contain the text of both previous articles
-		Given I am the admin
+		Given the blog is set up
+		And I am logged into the admin panel
 		When I am on the edit article page
 		And I fill in "Article ID" with "some ID"
 		And I press "Merge"
