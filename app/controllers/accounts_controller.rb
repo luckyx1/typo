@@ -5,9 +5,9 @@ class AccountsController < ApplicationController
 
   def index
     if User.count.zero?
-      redirect_to :action => 'signup'
+      redirect_to :action => 'login' 
     else
-      redirect_to :action => 'login'
+      redirect_to :action => 'signup'
     end
   end
 
