@@ -17,10 +17,7 @@ Background: Given articles and users exist with the following data
             | 2  | Book             | nacho  | 2       | library | true           | true      | 2013-01-11 12:30:00 | published | Article |
             | 7  | Plant vs Zombies | monkey | 3       | android | true           | true      | 2013-02-11 15:00:00 | published | Article |
 
-        Given the following comments exist:
-            | id | type    | author | body     | article_id | user_id | created_at          |
-            | 2  | Comment | nacho | thug_life | 2          | 2       | 2013-01-11 17:25:00 |
-            | 4  | Comment | monkey | no       | 7          | 3       | 2013-02-11 20:15:00 |
+        
 
 
 	Scenario: A non-admin cannot merge articles
@@ -40,26 +37,26 @@ Background: Given articles and users exist with the following data
 
 	Scenario: When articles are merged, the merged article should contain the text of both previous articles
 
-		Given the blog is set up
-		And I am logged into the admin panel
+		Given I am logged into the admin panel
 		When I follow "All Articles"
-		And I fill in "Article ID" with "some ID"
+		And I follow "Book"
+		And I fill in "Article ID" with "7"
 		And I press "Merge"
 		Then I should be on the admin content page
     		When I go to the home page
-    		Then I should see "Article 1"
-    		When I follow "Article 1"
-    		Then I should see "Article 1 content" and "Article 2 content"	
+    		Then I should see "Book"
+    		When I follow "Book"
+    		Then I should see "Book content" and "Plant vs Zombies content"	
 
 	Scenario: When articles are merged, the merged article should have one author
-		Given the blog is set up
-		And I am logged into the admin panel
+		Given I am logged into the admin panel
 		When I follow "All Articles"
-		And I fill in "Article ID" with "some ID"
+		And I follow "Plant vs Zombies"
+		And I fill in "Article ID" with "2"
 		And I press "Merge"
 		Then I should be on the admin content page
-    		And I should see "Article 1" with "Author" as "X"
-    		And I should not see "Article 2"	
+    		And I should see "Plant vs Zombies" with "Author" as "monkey"
+    		And I should not see "Book"	
 
 
 	Scenario: Comments on each of the two original articles need to all carry over and point to the new, merged article
