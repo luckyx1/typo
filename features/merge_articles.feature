@@ -24,17 +24,25 @@ Background: Given articles and users exist with the following data
 
 
 	Scenario: A non-admin cannot merge articles
-		Given I am not the admin
-		When I am on the edit article page
-		Then I should not see "Merge Articles"
+		Given the non-admin blog is set up
+		And I am logged into the non-admin panel
+		And the following articles exist
+		| title | author | id |
+		| Cool School | non-admin | 3 |
+		| Second | non-admin2 | 2 |
+		When I follow "All Articles"
+		And I follow "Cool School"
+		Then I should not see "Merge articles"
 
 	Scenario: A new article cannot be merged
 		Given I am on the new article page
 		Then I should not see "Merge Articles"
 
 	Scenario: When articles are merged, the merged article should contain the text of both previous articles
-		Given I am logged into the admin panel
-		When I am on the edit article page
+
+		Given the blog is set up
+		And I am logged into the admin panel
+		When I follow "All Articles"
 		And I fill in "Article ID" with "some ID"
 		And I press "Merge"
 		Then I should be on the admin content page
@@ -44,8 +52,9 @@ Background: Given articles and users exist with the following data
     		Then I should see "Article 1 content" and "Article 2 content"	
 
 	Scenario: When articles are merged, the merged article should have one author
-		Given I am the admin
-		When I am on the edit article page
+		Given the blog is set up
+		And I am logged into the admin panel
+		When I follow "All Articles"
 		And I fill in "Article ID" with "some ID"
 		And I press "Merge"
 		Then I should be on the admin content page
