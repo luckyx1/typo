@@ -25,6 +25,13 @@ And /^I am logged into the non-admin panel$/ do
 	
 end
 
+And /^the following articles exist$/ do |art|
+  art.hashes.each do |info|
+	Article.create!(info)
+  end
+end
+
+
 #Given /^I am the admin$/ do
 #end
 
