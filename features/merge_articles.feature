@@ -19,7 +19,7 @@ Background: Given articles and users exist with the following data
 
         Given the following comments exist:
             | id | type    | author | body     | article_id | user_id | created_at          |
-            | 2  | Comment | nacho | thug_life | 2          | 2       | 2013-01-11 17:25:00 |
+            | 2  | Comment | nacho | thuglife | 2          | 2       | 2013-01-11 17:25:00 |
             | 4  | Comment | monkey | no       | 7          | 3       | 2013-02-11 20:15:00 |
 
 
