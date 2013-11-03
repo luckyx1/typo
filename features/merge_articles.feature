@@ -5,10 +5,10 @@ Feature: Merge Articles
 
 	Scenario: A non-admin cannot merge articles
 
-	Scenario:
+	Scenario: When articles are merged, the merged article should contain the text of both previous articles
 
-	Scenario:
+	Scenario: When articles are merged, the merged article should have one author
 
-	Scenario:
+	Scenario: Comments on each of the two original articles need to all carry over and point to the new, merged article
 
-	Scenario:
+	Scenario: The title of the new article should be the title from either one of the merged articles
