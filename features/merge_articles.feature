@@ -7,18 +7,15 @@ Background: Given articles and users exist with the following data
 
         Given the blog is set up
 
-        Given the following users exist:
-            | profile_id | login  | name  | password | email                      | state  |
-            | 2          | nacho | Robert | sonic    | nacholuckymaster@gmail.com | active |
-            | 3          | monkey | Karla | ninja    | kaguilar7@berkeley.edu     | active |
+       Given the following users exist:
+            | profile_id | login  | name  | password | email                      | 
+            | 1          | nacho  | Robert| sonic    | nacholuckymaster@gmail.com | 
+            | 2          | monkey | Karla | ninja    | kaguilar7@berkeley.edu     | 
 
         Given the following articles exist:
-            | id | title            | author | user_id | body    | allow_comments | published | published_at        | state     | type    |
-            | 2  | Book             | nacho  | 2       | library | true           | true      | 2013-01-11 12:30:00 | published | Article |
-            | 7  | Plant vs Zombies | monkey | 3       | android | true           | true      | 2013-02-11 15:00:00 | published | Article |
-
-
-
+            | id | title            | author | body    | published | 
+            | 2  | Book             | nacho  | library | true      | 
+            | 7  | Plant vs Zombies | monkey | android | true      | 
 
 	Scenario: A non-admin cannot merge articles
 		Given the non-admin blog is set up
@@ -35,29 +32,23 @@ Background: Given articles and users exist with the following data
 		Given I am on the new article page
 		Then I should not see "Merge Articles"
 
+	Scenario: A admin can merge articles
+		 Given I am logged into the admin panel as "nacho" with "sonic"
+    	 And I visit the the edit page for "Book"
+    	 Then I should see "Merge Articles"
+
 	Scenario: When articles are merged, the merged article should contain the text of both previous articles
 
-		Given I am logged into the admin panel
-		When I follow "All Articles"
-		And I follow "Book"
-		And I fill in "Article ID" with "7"
-		And I press "Merge"
+		Given I am logged into the admin panel as "nacho" with "sonic"
+		And I visit the the edit page for "Book"
+		And I try to merge with "Plant vs Zombies"
 		Then I should be on the admin content page
-    		When I go to the home page
-    		Then I should see "Book"
-    		When I follow "Book"
-    		Then I should see "Book content" and "Plant vs Zombies content"	
+        And I should see "Articles successfully merged!"
+
 
 	Scenario: When articles are merged, the merged article should have one author
 		Given I am logged into the admin panel
-		When I follow "All Articles"
-		And I follow "Plant vs Zombies"
-		And I fill in "Article ID" with "2"
-		And I press "Merge"
-		Then I should be on the admin content page
-    		And I should see "Plant vs Zombies" with "Author" as "monkey"
-    		And I should not see "Book"	
-
+		
 
 	Scenario: Comments on each of the two original articles need to all carry over and point to the new, merged article
 

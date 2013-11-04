@@ -122,6 +122,7 @@ class Article < Content
 
   end
 
+
   def year_url
     published_at.year.to_s
   end
@@ -416,6 +417,20 @@ class Article < Content
     user.admin? || user_id == user.id
   end
 
+  def merge(article_id)
+    merge = Article.find_by_id(article_id)
+    if not self.id or not merge.id
+      return false
+    end
+
+    self.body = self.body + "\n\n" + merge.body
+    self.comments << merge.comments
+    self.save!
+
+    merge.destroy
+    return true
+  end
+
   protected
 
   def set_published_at
@@ -466,4 +481,5 @@ class Article < Content
     to = to - 1 # pull off 1 second so we don't overlap onto the next day
     return from..to
   end
+
 end

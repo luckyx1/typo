@@ -11,8 +11,6 @@ Given /^the non-admin blog is set up$/ do
                 :state => 'active'})
 end
 
-
-
 And /^I am logged into the non-admin panel$/ do
   visit '/accounts/login'
   fill_in 'user_login', :with => 'non-admin'
@@ -25,22 +23,16 @@ And /^I am logged into the non-admin panel$/ do
   end
 end	
 
-Given /^I am not the admin$/ do
-   # express the regexp above with the code you wish you had
-   if page.logged_in?
-    false
+Given /^I am logged in as "(.*?)" with pass "(.*?)"$/ do |user, pass|
+  visit '/accounts/login'
+  fill_in 'user_login', :with => user
+  fill_in 'user_password', :with => pass
+  click_button 'Login'
+  if page.respond_to? :should
+    page.should have_content('Login successful')
   else
-    true
+    assert page.has_content?('Login successful')
   end
-end
-
-Given /^I am the admin$/ do
-  if page.responds_to? visit '/accounts/admin'
-    true
-  else
-    false
-  end
-
 end
 
 And /^the following articles exist$/ do |art|
@@ -50,22 +42,33 @@ And /^the following articles exist$/ do |art|
 end
 
 
-#Given /^I am the admin$/ do
-#end
-
-Then /^I should see "(.*?)" and "(.*?)"$/ do |arg1, arg2|
-  pending # express the regexp above with the code you wish you had
-end
-
-Then /^I should see "(.*?)" with "(.*?)" as "(.*?)"$/ do |arg1, arg2, arg3|
-  pending # express the regexp above with the code you wish you had
+When /^I visit the the edit page for "(.*)"$/ do |title|
+  visit 'admin/content/edit/' + Article.find_by_title(title).id.to_s
 end
 
 Given /the following (.*?) exist:$/ do |type, table|
   table.hashes.each do |element|
-    if    type == "users"    then User.create(element)
-    elsif type == "articles" then Article.create(element)
+    if    type == "users"    then User.create!(element)
+    elsif type == "articles" then Article.create!(element)
     elsif type == "comments" then Comment.create(element)
     end
   end
 end
+
+Given /^I am logged into the admin panel as "(.*?)" with "(.*?)"$/ do |user, pass|
+  visit '/accounts/login'
+  fill_in 'user_login', :with => user
+  fill_in 'user_password', :with => pass
+  click_button 'Login'
+  if page.respond_to? :should
+    page.should have_content('Login successful')
+  else
+    assert page.has_content?('Login successful')
+  end
+end
+
+Given /^I try to merge with "(.*?)"$/ do |title|
+  fill_in 'merge_with', :with => Article.find_by_title(title).id
+  click_button 'Merge'
+end
+
