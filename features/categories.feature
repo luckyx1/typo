@@ -16,7 +16,7 @@ Backgroud:
 		And I should see "Description"
 
 	Scenario: Create a new category
-		Given I am on the admin_categories page
+		Given I am on the Admin Categories
 		When I fill in "Name" with "Cal"
 		And I fill in "Keywords" with "Bears"
 		And I fill in "Permalink" with "www.google.com"
@@ -26,7 +26,7 @@ Backgroud:
 
 
 	Scenario: Edit a category
-		Given I am on the admin_categories page
+		Given I am on the Admin Categories
 		When I follow "Edit"
 		Then I should see "Name"
 		And I should see "Keywords"
