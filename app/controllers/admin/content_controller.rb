@@ -14,7 +14,6 @@ class Admin::ContentController < Admin::BaseController
     end
 
     article =Article.find_by_id(params[:merge_with])
-    puts @var 
     if article == nil
       flash[:notice] = _("Can't merge with unvalid id")
       redirect_to :action => :index

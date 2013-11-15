@@ -9,7 +9,7 @@ Backgroud:
 
 
 	Scenario: Open page to create a new category
-		Given I am on the admin_categories page
+		Given I am on the Admin Categories 
 		Then I should see "Name"
 		And I should see "Keywords"
 		And I should see "Permalink"
