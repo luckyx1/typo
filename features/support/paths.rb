@@ -19,8 +19,7 @@ module NavigationHelpers
       '/admin/content/new'
     when /^the Edit Page of Article with id (\d+)$/
     "/admin/content/edit/#{$1}"
-    when /^the admin_categories page$/
-      '/admin/categories/new'
+    
 
 
     # Add more mappings here.

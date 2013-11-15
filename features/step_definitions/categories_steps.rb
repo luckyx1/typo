@@ -1,3 +1,3 @@
-Given /^I am on the Admin Categories$/ do
-	visit '/admin/categories/new'
+When /^I view the Admin Categories$/ do
+	visit '/admin/categories/'
 end
