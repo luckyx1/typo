@@ -19,7 +19,7 @@ Background: start on categories
 	Scenario: Create a new category
 		When I fill in "Name" with "Cal"
 		And I fill in "Keywords" with "Bears"
-		And I fill in "Permalink" with "www.google.com"
+		And I fill in "Permalink" with ""
 		And I fill in "Description" with "seniors"
 		When I press "Save"
 		Then I should see "Cal"
