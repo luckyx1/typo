@@ -1,5 +1,5 @@
 require 'base64'
-
+@var = 0
 module Admin; end
 class Admin::ContentController < Admin::BaseController
   layout "administration", :except => [:show, :autosave]
@@ -14,8 +14,11 @@ class Admin::ContentController < Admin::BaseController
     end
 
     article =Article.find_by_id(params[:merge_with])
-    puts article 
-    if article.merge(params[:merge_with])
+    puts @var 
+    if article == nil
+      flash[:notice] = _("Can't merge with unvalid id")
+      redirect_to :action => :index
+    elsif article.merge(params[:merge_with])
       flash[:notice] = _("Articles successfully merged!")
       redirect_to :action => :index
     else
@@ -47,12 +50,14 @@ class Admin::ContentController < Admin::BaseController
 
   def edit
     @article = Article.find(params[:id])
+    @var = params[:id]
     @is_admin = Profile.find(current_user.profile_id).label == "admin"
     unless @article.access_by? current_user
       redirect_to :action => 'index'
       flash[:error] = _("Error, you are not allowed to perform this action")
       return
     end
+
     new_or_edit
   end
 

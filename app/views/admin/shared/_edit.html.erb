@@ -11,6 +11,6 @@
     <%= label_tag 'article_id', 'Article ID' %>
     <%= text_field_tag 'merge_with' %>
     <%= submit_tag 'Merge' %>
-    <%= hidden_field_tag 'id', @article.id  %>
+    <%= hidden_field_tag 'id', params[:id]  %>
   <% end %>
 <% end %>
